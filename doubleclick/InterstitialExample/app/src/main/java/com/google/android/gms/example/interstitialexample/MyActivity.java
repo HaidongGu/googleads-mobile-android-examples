@@ -96,7 +96,11 @@ public class MyActivity extends ActionBarActivity {
     private void showInterstitial() {
         // Show the ad if it's ready. Otherwise toast and restart the game.
         if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    mInterstitialAd.show();
+                }
+            });
         } else {
             Toast.makeText(this, "Ad did not load", Toast.LENGTH_SHORT).show();
             startGame();
